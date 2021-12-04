@@ -5,13 +5,13 @@ ones = defaultdict(int)
 numbers = []
 
 with open("d3.txt") as f:
-    
+
     for line in f:
         line = line.rstrip()
         numbers.append(line)
         for i in range(len(line)):
             ones[11 - i] += int(line[i])
-    
+
 gamma = 0
 epsilon = 0
 
@@ -22,8 +22,9 @@ for index in range(12):
 
 print(gamma * epsilon)
 
-def find_number(numbers, inverse = False):
-    
+
+def find_number(numbers, inverse=False):
+
     for index in range(12):
         counts = Counter(number[index] for number in numbers)
         bit = int(counts.most_common()[0][0]) if not inverse else not int(counts.most_common()[0][0])

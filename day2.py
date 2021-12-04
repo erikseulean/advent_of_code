@@ -3,11 +3,11 @@
 # forward X increases the horizontal position by X units.
 # down X increases the depth by X units.
 # up X decreases the depth by X units.
-# Note that since you're on a submarine, down and up affect your depth, 
+# Note that since you're on a submarine, down and up affect your depth,
 # and so they have the opposite result of what you might expect.
 
 
-# Your horizontal position and depth both start at 0. The steps above would then 
+# Your horizontal position and depth both start at 0. The steps above would then
 # modify them as follows:
 
 # forward 5 adds 5 to your horizontal position, a total of 5.
@@ -20,12 +20,12 @@
 
 # Q2
 
-# Based on your calculations, the planned course doesn't seem to make any sense. 
-# You find the submarine manual and discover that the process is actually slightly 
+# Based on your calculations, the planned course doesn't seem to make any sense.
+# You find the submarine manual and discover that the process is actually slightly
 # more complicated.
 
 # In addition to horizontal position and depth, you'll also need to track a third value,
-# aim, which also starts at 0. The commands also mean something entirely different than 
+# aim, which also starts at 0. The commands also mean something entirely different than
 # you first thought:
 
 # down X increases your aim by X units.
@@ -34,11 +34,7 @@
 # It increases your horizontal position by X units.
 # It increases your depth by your aim multiplied by X.
 
-res = {
-    "up": 0,
-    "down": 0,
-    "forward": 0
-}
+res = {"up": 0, "down": 0, "forward": 0}
 
 aim = 0
 depth = 0
@@ -48,7 +44,7 @@ with open("d2.txt") as f:
     for line in f:
         instruction, number = line.split()
         number = int(number)
-        
+
         res[instruction] = res[instruction] + number
 
         if instruction == "down":
