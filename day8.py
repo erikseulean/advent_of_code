@@ -16,12 +16,14 @@ correct = {
     "abdefg": 6,
     "acf": 7,
     "abcdefg": 8,
-    "abcdfg": 9
+    "abcdfg": 9,
 }
+
 
 def find_a(one, seven):
     letters_map["a"] = seven.difference(one).pop()
     letters_map_reverse[letters_map["a"]] = "a"
+
 
 def find_e_and_g(one, four, seven, eight):
     common = set(one)
@@ -29,6 +31,7 @@ def find_e_and_g(one, four, seven, eight):
     common.update(seven)
 
     return eight.difference(common)
+
 
 def define_e_and_g(e_and_g, eight, unknown_digits):
 
@@ -41,13 +44,14 @@ def define_e_and_g(e_and_g, eight, unknown_digits):
 
         e = diff[0]
         e_and_g.remove(e)
-        g = e_and_g.pop() 
-        
+        g = e_and_g.pop()
+
         letters_map["g"] = g
         letters_map_reverse[g] = "g"
         letters_map["e"] = e
         letters_map_reverse[e] = "e"
         return
+
 
 def define_c(one, unknown_digits):
     one = set(one)
@@ -59,6 +63,7 @@ def define_c(one, unknown_digits):
             letters_map["c"] = c
             letters_map_reverse[c] = "c"
             return
+
 
 def define_f(seven):
     letters_map["f"] = seven.difference(letters_map_reverse.keys()).pop()
@@ -76,7 +81,7 @@ def define_b_and_d(unknown_digits):
             letters_map["d"] = d
             letters_map_reverse[d] = "d"
             break
-    
+
     missing = all_letters.difference(set(letters_map.keys()))
     missing = missing.pop()
     missing_wrong = all_letters.difference(set(letters_map_reverse.keys()))
@@ -92,8 +97,9 @@ def decode(wrong):
 
     return correct["".join(sorted(l))]
 
-count = 0 
-s = 0 
+
+count = 0
+s = 0
 with open("d8.txt") as f:
     for line in f:
         unknown_digits = []
@@ -111,22 +117,17 @@ with open("d8.txt") as f:
             else:
                 unknown_digits.append(set(digit))
             count += 1
-        
+
         find_a(set(digit_to_code[1]), set(digit_to_code[7]))
-        e_g = find_e_and_g(
-            digit_to_code[1],
-            digit_to_code[4],
-            digit_to_code[7],
-            set(digit_to_code[8])
-        )
+        e_g = find_e_and_g(digit_to_code[1], digit_to_code[4], digit_to_code[7], set(digit_to_code[8]))
         define_e_and_g(e_g, digit_to_code[8], unknown_digits)
         define_c(digit_to_code[1], unknown_digits)
         define_f(set(digit_to_code[7]))
         define_b_and_d(unknown_digits)
-        
+
         nr = 0
         for i in range(4):
-            nr += 10**(3 - i) * decode(result[i])
+            nr += 10 ** (3 - i) * decode(result[i])
         s += nr
 print(count)
 print(s)

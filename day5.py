@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+
 def expand_coordinates(x1, x2, all_cords):
     min_x, max_x = min(x1[0], x2[0]), max(x1[0], x2[0])
     min_y, max_y = min(x1[1], x2[1]), max(x1[1], x2[1])
@@ -11,19 +12,21 @@ def expand_coordinates(x1, x2, all_cords):
     elif min_y == max_y:
         for z in range(min_x, max_x + 1):
             all_cords[(z, min_y)] += 1
-    elif abs(x1[0] - x2[0])  ==  abs(x1[1] - x2[1]):
+    elif abs(x1[0] - x2[0]) == abs(x1[1] - x2[1]):
         sign_x = -1 if x1[0] > x2[0] else 1
-        sign_y = -1 if x1[1] > x2[1] else 1 
+        sign_y = -1 if x1[1] > x2[1] else 1
         current_x, current_y = x1[0], x1[1]
         for steps in range(abs(x1[0] - x2[0]) + 1):
             all_cords[(current_x, current_y)] += 1
             current_x += 1 * sign_x
             current_y += 1 * sign_y
 
+
 def format(cord):
     cord = cord.split(",")
     cord = (int(cord[0]), int(cord[1]))
     return cord
+
 
 covered = defaultdict(int)
 with open("d5.txt") as f:
