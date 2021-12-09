@@ -20,23 +20,15 @@ correct = {
 }
 
 def find_a(one, seven):
-    for letter in seven:
-        if letter in one:
-            continue
-        letters_map["a"] = letter
-        letters_map_reverse[letter] = "a"
-    return
+    letters_map["a"] = seven.difference(one).pop()
+    letters_map_reverse[letters_map["a"]] = "a"
 
 def find_e_and_g(one, four, seven, eight):
     common = set(one)
     common.update(four)
     common.update(seven)
 
-    e_and_g = []
-    for letter in eight:
-        if letter not in common:
-            e_and_g.append(letter)
-    return set(e_and_g)    
+    return eight.difference(common)
 
 def define_e_and_g(e_and_g, eight, unknown_digits):
 
@@ -69,12 +61,9 @@ def define_c(one, unknown_digits):
             return
 
 def define_f(seven):
-    for letter in seven:
-        if letter in letters_map_reverse:
-            continue
-        letters_map["f"] = letter
-        letters_map_reverse[letter] = "f"
-        return
+    letters_map["f"] = seven.difference(letters_map_reverse.keys()).pop()
+    letters_map_reverse[letters_map["f"]] = "f"
+
 
 def define_b_and_d(unknown_digits):
     known = set(letters_map.values())
@@ -110,9 +99,7 @@ with open("d8.txt") as f:
         unknown_digits = []
         digit_to_code = {}
 
-        # store the right one 
         letters_map = {}
-        # store the reverse one
         letters_map_reverse = {}
 
         digits = line.split("|")
@@ -125,16 +112,16 @@ with open("d8.txt") as f:
                 unknown_digits.append(set(digit))
             count += 1
         
-        find_a(digit_to_code[1], digit_to_code[7])
+        find_a(set(digit_to_code[1]), set(digit_to_code[7]))
         e_g = find_e_and_g(
             digit_to_code[1],
             digit_to_code[4],
             digit_to_code[7],
-            digit_to_code[8]
+            set(digit_to_code[8])
         )
         define_e_and_g(e_g, digit_to_code[8], unknown_digits)
         define_c(digit_to_code[1], unknown_digits)
-        define_f(digit_to_code[7])
+        define_f(set(digit_to_code[7]))
         define_b_and_d(unknown_digits)
         
         nr = 0
