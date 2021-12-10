@@ -1,5 +1,3 @@
-import operator
-
 illegals = {
     ")": 3,
     "]": 57,
