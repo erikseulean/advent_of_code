@@ -1,5 +1,6 @@
 matrix = []
 
+
 def basin(i, j):
     if matrix[i][j] >= 9:
         return 0
