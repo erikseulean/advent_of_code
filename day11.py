@@ -13,7 +13,7 @@ def increment(matrix):
             matrix[row][col] += 1
             if matrix[row][col] > 9:
                 flash.add((row, col))
-            
+
     return flash
 
 
@@ -27,12 +27,9 @@ def find_additional_flashes(matrix, already_flashed):
 
 
 def flash_point(matrix, row, col):
-    if not (
-        row >= 0 and row < len(matrix) and 
-        col >= 0 and col < len(matrix)
-    ):
-        return 
-    
+    if not (row >= 0 and row < len(matrix) and col >= 0 and col < len(matrix)):
+        return
+
     matrix[row][col] += 1
 
 
@@ -52,17 +49,19 @@ def flash_all(matrix, flashes):
             flash_around(matrix, row, col)
             already_flashed.add((row, col))
         flashes = find_additional_flashes(matrix, already_flashed)
-    
+
     for row, col in already_flashed:
         matrix[row][col] = 0
-    
+
     return len(already_flashed)
+
 
 def show(matrix):
     for row in matrix:
         print(" ".join([str(nr) for nr in row]))
 
-total = 0 
+
+total = 0
 
 for _ in range(1000):
     flashes = increment(matrix)
