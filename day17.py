@@ -22,15 +22,16 @@ def find_max(x, y, x_min, x_max, y_min, y_max):
         y -= 1
         if x == 0:
             continue
-        x = (x + 1 if x < 0 else x - 1)
+        x = x + 1 if x < 0 else x - 1
 
     return in_range
+
 
 max_value = 0
 
 for x in range(-500, 500):
     for y in range(-500, 500):
         if find_max(x, y, x_min, x_max, y_min, y_max):
-            dist.add((x,y))
+            dist.add((x, y))
             max_value += 1
             print(x, y, max_value)
