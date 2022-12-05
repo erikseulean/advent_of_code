@@ -30,16 +30,11 @@ def handle_operation(from_index: int, to_index: int, how_many: int, stacks: List
 
 
 def handle_operation_p2(from_index: int, to_index: int, how_many: int, stacks: List[str]) -> None:
-    from_stack = stacks[from_index]
-    to_stack = stacks[to_index]
-
-    to_move = from_stack[-how_many:]
-    from_stack = from_stack[:-how_many]
-    to_stack.extend(to_move)
-
-    stacks[from_index] = from_stack
-    stacks[to_index] = to_stack
-
+    
+    to_move = stacks[from_index][-how_many:]
+    stacks[from_index] = stacks[from_index][:-how_many]
+    stacks[to_index].extend(to_move)
+    
 
 def get_result(stacks: List[str]) -> None:
 
